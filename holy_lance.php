@@ -1,6 +1,7 @@
 <?php
 if (!empty($_GET["file"]) && $_GET["file"] == "api.php"):
-?><?php
+?>
+<?php
 /*
  * Holy Lance
  * https://github.com/lincanbin/Holy-Lance
