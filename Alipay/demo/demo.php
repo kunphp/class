@@ -3,7 +3,7 @@
  * 支付宝支付测试文件
  *
  */
-require_once "./alipayPC.php";
+require_once "./alipay.php";
 
 require_once "./config.php";
 
