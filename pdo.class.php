@@ -157,68 +157,6 @@ class pdoModel{
 
 
     /**
-     * 带分页的查询
-     * 
-     * @param     string     $searchSql    查询sql语句
-     * @param     integer    $rows         每页显示条数
-     * @param     string     $params       额外附加参数,例如 : &uid=1001 
-     * @param     boolean    $debug        是否开启调试模式，开始调试模式直接返回sql
-     * @return    array      $result       返回结果
-     */
-    public function getAllWithPage2($searchSql = '' ,$totalSql='', $rows = 10 , $params = '' , $debug = false ){
-        $debugInfo = array();
-
-        $result = array();
-
-        if( empty($searchSql) ){
-            return $result;
-        }
-        
-        $total = 0;
-
-        $total = $this->getCount2($totalSql);
-
-        if( intval($total) <= 0 ){
-            return $result;
-        }
-        
-        //加载分页类
-        require_once __DIR__.DIRECTORY_SEPARATOR.'pageModel.class.php';
-
-        //实例化分页类
-        $pageModel = new pageModel($total , $rows , $params);
-
-        $searchPageSql = $searchSql . $pageModel->limit;
-
-        //开启调试模式
-        if( true === $debug ){
-
-            $debugInfo['searchSql'] = $searchSql;
-
-            $debugInfo['listSql'] = $searchPageSql;
-            
-            //显示分页信息
-            $debugInfo['pageStr'] = $pageModel->showPage();
-
-            return $debugInfo;
-        }
-
-        $list = array();
-
-        $list = $this->getAll($searchPageSql);
-
-        $result['total'] = $total;
-
-        $result['pageStr'] = $pageModel->showPage();
-
-        $result['list'] = $list;
-
-        return $result;
-    }
-
-
-
-    /**
      * 自动替换查询条件中的统计语句
      * 
      * @param     string     $searchSql    查询sql语句
